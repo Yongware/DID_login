@@ -4,7 +4,7 @@ import {TouchableOpacity, Text, StyleSheet} from "react-native";
 export default class CustomButton extends React.Component{
     static defaultProps = {
         title: 'untitled',
-        buttonColor: '#01DF01',
+        buttonColor: 'green',
         titleColor: '#fff',
         onPress: () => null,
     }
@@ -31,15 +31,16 @@ export default class CustomButton extends React.Component{
 
 const styles = StyleSheet.create({
     button:{
-        flex:1,
+        height: 40, 
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: "green",
-        marginBottom: 10,
+        margin: 10,
+        marginTop: 40,
         borderRadius: 20,
     },
     title:{
-        fontsize: 20,
-        fontWeight: 100
+        fontSize: 20,
+        fontWeight: "300"
     },
 });
