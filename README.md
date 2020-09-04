@@ -14,7 +14,7 @@
 ### 팀원
 **최영우**
 > **Front-end Team**<br>
-> GitHub Id: <br>
+> GitHub Id: [Yongware](https://github.com/yongware) <br>
 > 경력 : 성균관대학교 소프트웨어학과 재학중<br>
 
 **박동민**
