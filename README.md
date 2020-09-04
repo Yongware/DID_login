@@ -42,13 +42,13 @@
 ## <div id= "now">진행 상황</div>
  ### Front-end
  ![](/images/DID_client.JPG)
-  > **JWT-QR Code를 통한 인증 방식** <br>
-  > **지문인식 및 Pin번호 사용을 통한 보안 설정** <br>
-  > **내부 DB에서 데이터를 잘못 읽어오는 오류 수정 중**<br>
+  * JWT-QR Code를 통한 인증 방식<br>
+  * 지문인식 및 Pin번호 사용을 통한 보안 설정<br>
+  * 내부 DB에서 데이터를 잘못 읽어오는 오류 수정 중<br>
   
  ### Back-end
-  > <br>
-  > <br>
+  * <br>
+  * <br>
   
 ## <div id="plan">활동 계획</div>
   ### Front-end
