@@ -7,25 +7,25 @@
 ## <div id = "Members">팀소개</div>
 ### 팀장
 **박승호**
+> **Back-end Team**<br>
 > GitHub Id: <br>
 > 경력: 성균관대학교 소프트웨어학과 재학중<br>
-> **Back-end Team**<br>
 
 ### 팀원
 **최영우**
+> **Front-end Team**<br>
 > GitHub Id: <br>
 > 경력 : 성균관대학교 소프트웨어학과 재학중<br>
-> **Front-end Team**<br>
 
 **박동민**
+> **Back-end Team**<br>
 > GitHub Id: <br>
 > 경력 : 성균관대학교 소프트웨어학과 재학중<br>
-> **Back-end Team**<br>
 
 **박근현**
+> **Front-end Team**<br>
 > GitHub Id: <br>
 > 경력 : 성균관대학교 소프트웨어학과 재학중<br>
-> **Front-end Team**<br>
 
 ## <div id = "about_project">프로젝트 소개</div>
  * 2020 산학협력프로젝트
