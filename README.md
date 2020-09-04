@@ -42,7 +42,7 @@
 ## <div id= "now">진행 상황</div>
  ### Front-end
  <center>
-  <img src = "https://github.com/Yongware/SKKU_DID_Client/images/DID_client.JPG">
+  <img src = "https://github.com/Yongware/SKKU_DID_Client/tree/master/images/DID_client.JPG">
  </center>
   > JWT-QR Code를 통한 인증 방식<br>
   > 지문인식 및 Pin번호 사용을 통한 보안 설정<br>
