@@ -8,22 +8,26 @@
 ### 팀장
 **박승호**
 > **Back-end Team**<br>
+> PM 및 System 구성 <br>
 > GitHub Id: <br>
 > 경력: 성균관대학교 소프트웨어학과 재학중<br>
 
 ### 팀원
 **최영우**
 > **Front-end Team**<br>
+> UI/UX 및 Client 구성 <br>
 > GitHub Id: [Yongware](https://github.com/yongware) <br>
 > 경력 : 성균관대학교 소프트웨어학과 재학중<br>
 
 **박동민**
 > **Back-end Team**<br>
+> Smart Contract 구현 <br>
 > GitHub Id: <br>
 > 경력 : 성균관대학교 소프트웨어학과 재학중<br>
 
 **박근현**
 > **Front-end Team**<br>
+> Client 내부 기능 구현 <br>
 > GitHub Id: <br>
 > 경력 : 성균관대학교 소프트웨어학과 재학중<br>
 
