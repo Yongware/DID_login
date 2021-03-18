@@ -16,7 +16,7 @@
 **최영우**
 > **Front-end Team**<br>
 > UI/UX 및 Client 구성 <br>
-> GitHub Id: [Yongware](https://github.com/yongware) <br>
+> GitHub Id: [cyw320712](https://github.com/cyw320712) <br>
 > 경력 : 성균관대학교 소프트웨어학과 재학중<br>
 
 **박동민**
