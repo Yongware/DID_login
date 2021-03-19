@@ -1,8 +1,7 @@
 # 성균관대학교 DID 학생증
  * [팀소개](#Members)
  * [프로젝트 소개](#about_project)
- * [진행 상황](#now)
- * [활동 계획](#plan)
+ * [활동 결과](#result)
 
 ## <div id = "Members">팀소개</div>
 ### 팀장
@@ -38,26 +37,11 @@
    * React-Native를 활용해 ios 및 Android 모두에서 사용 가능한 Client
    * Runiverse 블록체인을 활용한 DID 인증
 
-
-## <div id= "now">진행 상황</div>
+## <div id= "result">활동 결과</div>
  ### Front-end
  ![](/images/DID_client.JPG)
   * JWT-QR Code를 통한 인증 방식<br>
   * 지문인식 및 Pin번호 사용을 통한 보안 설정<br>
-  * 내부 DB에서 데이터를 잘못 읽어오는 오류 수정 중<br>
-  
- ### Back-end
-  * <br>
-  * <br>
-  
-## <div id="plan">활동 계획</div>
-  ### Front-end
-   > 9월 1일 ~ 9월 9일: Sqlite 모듈을 통해 DB에서 개인정보를 읽어오는 과정에서 생기는 오류 수정 <br>
-   > 9월 10일 ~ 9월 18일: Pin번호를 통한 어플 자체 보안 설정 구현 <br>
-   > 9월 19일 ~ 9월 24일: Client의 기타 오류 수정 및 배포 단계까지 완료<br>
-   > 9월 25일 ~ 10월 4일: 연휴<br>
-   > 10월 5일 ~ 10월 11일: Back-end 서버 구축 완료시 QRCode 스캐너와 서버 연결 및 인증 절차 구현<br>
-   > 10월 12일 ~ 10월 23일: 시연 및 오류 수정<br>
-  ### Back-end
-   > <br>
-   > <br>
+  * SKKU login module을 사용한 계정 동기화<br>
+  * Runiverse API과 연동<br>
+  * 
