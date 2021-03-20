@@ -6,100 +6,139 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+import * as SQLite from 'expo-sqlite';
 
-export default class RegisterScreen extends Component {
+const stdData = SQLite.openDatabase('student.db');
+const final = SQLite.openDatabase('final.db');
+
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: '',
-      name: '',
       stdNum: '',
-      diploma: '',
+      name: '',
+      degree: '',
+      college: '',
       major: '',
       prsNumFront: '',
       prsNumBack: '',
-      address: '',
+      date: '',
+      prsNum: '',
+      school: '',
     };
   }
 
   componentDidMount() {
-    var that = this;
     var date = new Date().getDate();
-    var month = new Date().getMonth() + 1;
+    var month = new Date().getMonth()+1;
     var year = new Date().getFullYear();
-    that.setState({date: year+'/'+month+'/'+date,});
+    this.setState({date: year+'/'+month+'/'+date});
+
+    stdData.transaction((tx) => {
+      tx.executeSql(
+        'create table if not exists DataTable (name text, degree text, college text, major text, prsNumFront int, prsNumBack int, date text, stdNum int, school text);',
+        [], (tx, results) => {}
+      );
+      tx.executeSql(
+        'insert into DataTable (name, degree, college, major, prsNumFront, prsNumBack, date, stdNum, school) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        ['박근현', '학사', '소프트웨어대학', '소프트웨어학과', '111111', '3', this.state.date, '2019311111', '성균관대학교'], (tx, results) => {}
+      );
+      tx.executeSql(
+        'insert into DataTable (name, degree, college, major, prsNumFront, prsNumBack, date, stdNum, school) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        ['박승호', '학사', '소프트웨어대학', '소프트웨어학과', '222222', '3', this.state.date, '2019312222', '성균관대학교'], (tx, results) => {}
+      );
+      tx.executeSql(
+        'insert into DataTable (name, degree, college, major, prsNumFront, prsNumBack, date, stdNum, school) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        ['최영우', '학사', '소프트웨어대학', '소프트웨어학과', '333333', '3', this.state.date, '2019313333', '성균관대학교'], (tx, results) => {}
+      );
+      tx.executeSql(
+        'insert into DataTable (name, degree, college, major, prsNumFront, prsNumBack, date, stdNum, school) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        ['박동민', '학사', '소프트웨어대학', '소프트웨어학과', '444444', '3', this.state.date, '2019314444', '성균관대학교'], (tx, results) => {}
+      );
+    });
   }
+
+  main(stdNum) {
+    var studentNumber = stdNum;
+    var isSet = true;
+    this.props.navigation.push('Main', { isSet, studentNumber});
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.backgroundContainer}>
-          <Text style={styles.title}>등록</Text>
+        <View style={styles.backContainer}>
+          <Text style={{fontWeight: 'bold', fontSize: 35, marginTop: '7%'}}>학생증 등록</Text>
         </View>
         <View style={styles.frontContainer}>
-          <Text style={styles.inputTitle}>이름</Text>
-          <TextInput 
-            style={styles.input}
-            placeholderTextColor="#263238"
-            onChangeText={(value) => this.setState({name: value})}
-            value={this.state.name}
-          />
-          <Text style={styles.inputTitle}>학번</Text>
-          <TextInput 
-            style={styles.input}
-            placeholderTextColor="#263238"
+          <Text style={{fontSize: 15, marginBottom: 3}}>학번</Text>
+          <TextInput style={styles.box}
+            placeholderTextColor='#7c8487'
+            placeholder='학번을 입력해주세요'
             onChangeText={(value) => this.setState({stdNum: value})}
-            value={this.state.stdNum}
-          />
-          <Text style={styles.inputTitle}>학위 과정(학사/석사/박사)</Text>
-          <TextInput 
-            style={styles.input}
-            placeholderTextColor="#263238"
-            onChangeText={(value) => this.setState({diploma: value})}
-            value={this.state.diploma}
-          />
-          <Text style={styles.inputTitle}>학과</Text>
-          <TextInput 
-            style={styles.input}
-            placeholderTextColor="#263238"
-            onChangeText={(value) => this.setState({major: value})}
-            value={this.state.major}
-          />
-          <Text style={styles.inputTitle}>주민등록번호</Text>
-          <View style={{flexDirection: 'row'}}>
-            <TextInput 
-              style={styles.inputID}
-              placeholderTextColor="#263238"
-              onChangeText={(value) => this.setState({prsNumFront: value})}
-              value={this.state.prsNumFront}
-            />
-            <Text style={{fontSize: 30}}>-</Text>
-            <TextInput 
-              style={styles.inputID}
-              placeholderTextColor="#263238"
-              onChangeText={(value) => this.setState({prsNumBack: value})}
-              value={this.state.prsNumBack}
-            />
-          </View>
-          <Text style={styles.inputTitle}>주소</Text>
-          <TextInput 
-            style={styles.input}
-            placeholderTextColor="#263238"
-            onChangeText={(value) => this.setState({address: value})}
-            value={this.state.address}
-          />
-          <Text style={styles.inputTitle}>발급일자</Text>
-          <View style={styles.input}>
-            <Text style={{fontSize: 20, paddingTop: 6}}>{this.state.date}</Text>
-          </View>
-          <TouchableOpacity 
-            style={styles.button}
+            value={this.state.stdNum}/>
+          <TouchableOpacity style={styles.button}
             onPress={() => {
-              NavigationService.back()
-              //json파일에 저장 및 main스크린으로 롤백
-            }
-          }>
-            <Text style={styles.buttonText}>등록</Text>
+              stdData.transaction((tx) => {
+                tx.executeSql('SELECT * FROM DataTable WHERE stdNum=?;', [this.state.stdNum], (tx, results) => {
+                  this.setState({name: results.rows.item(0).name});
+                  this.setState({degree: results.rows.item(0).degree});
+                  this.setState({college: results.rows.item(0).college});
+                  this.setState({major: results.rows.item(0).major});
+                  this.setState({prsNumFront: results.rows.item(0).prsNumFront});
+                  this.setState({prsNumBack: results.rows.item(0).prsNumBack});
+                  this.setState({date: results.rows.item(0).date});
+                  this.setState({prsNum: results.rows.item(0).prsNumFront+'-'+results.rows.item(0).prsNumBack});
+                  this.setState({school: results.rows.item(0).school});
+                  console.log(results.rows.item(0));
+                });
+              });
+            }}>
+            <Text style={styles.buttonText}>조회하기</Text>
+          </TouchableOpacity>
+          <Text style={{paddingTop: '6%', fontSize: 15, marginBottom: 3}}>이름</Text>
+          <View style={styles.box}>
+            <Text style={{fontSize: 18}}>{this.state.name}</Text>
+          </View>
+            <Text style={styles.subTitle}>학위</Text>
+          <View style={styles.box}>
+            <Text style={{fontSize: 18}}>{this.state.degree}</Text>
+          </View>
+            <Text style={styles.subTitle}>소속 학부</Text>
+          <View style={styles.box}>
+            <Text style={{fontSize: 18}}>{this.state.college}</Text>
+          </View>
+          <Text style={styles.subTitle}>소속 학과</Text>
+          <View style={styles.box}>
+            <Text style={{fontSize: 18}}>{this.state.major}</Text>
+          </View>
+          <Text style={styles.subTitle}>주민등록번호</Text>
+          <View style={styles.box}>
+            <Text style={{fontSize: 18}}>{this.state.prsNum}</Text>
+          </View>
+          <Text style={styles.subTitle}>발급일자</Text>
+          <View style={styles.box}>
+            <Text style={{fontSize: 18}}>{this.state.date}</Text>
+          </View>
+          <TouchableOpacity style={styles.button}
+            onPress={() => {
+              console.log("finalData");
+              final.transaction((tx) => {
+                tx.executeSql(
+                  'create table if not exists Data (name text, degree text, college text, major text, prsNumFront int, prsNumBack int, date text, stdNum text, school text);',
+                  [], (tx, results) => {}
+                );
+                tx.executeSql(
+                  'insert into Data (name, degree, college, major, prsNumFront, prsNumBack, date, stdNum, school) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                  [this.state.name, this.state.degree, this.state.college, this.state.major, this.state.prsNumFront, this.state.prsNumBack, this.state.date, this.state.stdNum, this.state.school], (tx, results) => {}
+                );
+                tx.executeSql('SELECT * FROM DataTable', [], (tx, results) => {
+                  console.log(results.rows.item(0));
+                });
+              });
+              this.main(this.state.stdNum);
+            }}>
+            <Text style={styles.buttonText}>신청하기</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -110,58 +149,47 @@ export default class RegisterScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#8DC53F',
+    backgroundColor: 'rgb(141, 198, 63)',
   },
-  backgroundContainer: {
+  backContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 30,
-  },
   frontContainer: {
-    flex: 2.5,
+    flex: 3,
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingHorizontal: 30,
-    paddingVertical: 30,
+    paddingHorizontal: '8%',
+    paddingTop: '7%',
+    paddingBottom: '1%',
   },
-  inputTitle: {
-    marginTop: 13,
+  subTitle: {
+    marginTop: '3%',
     fontSize: 15,
-    marginBottom: 2,
+    marginBottom: '0.5%',
   },
-  input: {
+  box: {
     width: '100%',
-    height: '7%',
+    height: '6%',
     borderRadius: 10,
-    fontSize: 17,
-    paddingLeft: 10,
-    backgroundColor: 'rgba(141, 197, 63, 0.6)',
-  },
-  inputID: {
-    width: '48%',
-    height: '110%',
-    borderRadius: 10,
-    fontSize: 17,
-    paddingLeft: 10,
-    backgroundColor: 'rgba(141, 197, 63, 0.6)',
+    paddingLeft: '3%',
+    backgroundColor: 'rgba(141, 198, 63, 0.6)',
+    justifyContent: 'center',
   },
   button: {
     borderRadius: 10,
     width: '100%',
-    height: '7%',
-    marginTop: 20,
+    height: '6%',
+    marginTop: '3%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#8DC53F',
+    backgroundColor: 'rgb(141, 198, 63)',
   },
   buttonText: {
     fontSize: 20,
     color: '#FFFFFF',
     fontWeight: 'bold',
-  }
+  },
 });

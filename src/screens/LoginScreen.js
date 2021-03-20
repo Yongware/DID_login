@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, View, TouchableHighlight, Text, ShakingText } from 'react-native';
+import { StyleSheet, TextInput, Image, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import CustomButton from "../components/CustomButton"
+import CustomButton from "../components/CustomButton";
 
 export default class Login extends React.Component{
   state = {
@@ -17,9 +17,9 @@ export default class Login extends React.Component{
       this.setState({pw:text});
   };
 
-  login = (id, pw) =>{
-    alert("id: "+ id + ", pw: "+pw);
-    this.props.navigation.push('Main')
+  login(id, pw) {
+    var studentNumber = id;
+    this.props.navigation.push('Main', { studentNumber });
   };
 
   render(){

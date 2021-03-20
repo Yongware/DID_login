@@ -1,37 +1,51 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import { QRCode } from 'react-native-custom-qr-codes-expo';
+import RNPreventScreenshot from 'react-native-prevent-screenshot';
 
-export default class AgeQRScreen extends React.Component{
+//getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
+export default class LibraryQRScreen extends React.Component{
     state = {
-        code:0,
-        idnumber_front:0,
+        code:2,
+        studentId: "",
+        department:"",
         time:new Date,
     };
 
     componentDidMount(){
-        this.setState({ idnumber_front: this.props.navigation.state.params.idnumber_front });
+        this.setState({
+            department: this.props.navigation.state.params.department,
+            studentId: this.props.navigation.state.params.studentnumber
+        })
+        RNPreventScreenshot;
     }
 
     render(){
         return (
             <View style={styles.container}>
                 <View style={styles.Rcontainer}>
-                    
                     <View style = {styles.title}>
                         <Text style={styles.content}>QR코드를 인식해 다음을 확인하세요.</Text>
                     </View>
                     <View style={styles.contantContainer}>
                         <Image style = {styles.profile} source={require(`../../profile.png`)}/>
                         <View style={styles.textContainer}>
-                            <Text style = {styles.content}>{"생년월일\n\n"}{this.state.idnumber_front}</Text>
+                            <Text style = {styles.content}>
+                                {"학과\n"}{this.state.department}{"\n\n"}
+                                {"학번\n"}{this.state.studentId}
+                            </Text>
                         </View>
                     </View>
-                    
                     <Text>{"\n"}</Text>
-                    <QRCode size={300} color='black' content='http://192.168.1.105:19010/api/vp/adult/'/>
+                    <QRCode
+                    content='http://192.168.1.105:19010/api/vp/library/'
                     //content 내부에 QR코드로 생성하고 싶은 문자열을 넣으면 된다.
-                    <Text>{"\n"}</Text>
+                    size={300}
+                    bgColor='white'
+                    fgColor='black'
+                    />
+                    {/* <Text>{this.state.time.getHours()}+{":"}+{this.state.time.getMinutes()}+{":"}+{this.state.time.getSeconds()}</Text> */}
                     <TouchableOpacity
                     onPress={()=>this.props.navigation.pop()}
                     style={styles.exitbutton}

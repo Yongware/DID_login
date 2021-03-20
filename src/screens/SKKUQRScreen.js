@@ -1,30 +1,20 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import { QRCode } from 'react-native-custom-qr-codes-expo';
-import userData from '../../info.json';
 
 export default class SKKUQRScreen extends React.Component{
     state = {
         code:1,
-        idnumber_front:0,
-        name:"",
-        studentId:2017311234,
-        school:"",
+        college:"",
         department:"",
+        time:new Date,
     };
 
     componentDidMount(){
-        if(userData!=null){
-            this.setState({name:userData.name});
-            this.setState({studentnumber:userData.studentnumber});
-            this.setState({idnumber_front:userData.idnumber_front});
-            this.setState({idnumber_back:userData.idnumber_back});
-            this.setState({school:userData.school});
-            this.setState({department:userData.department});
-        }
-        else{
-            alert('아직 학생증 생성을 하지 않으셨습니다.');
-        }
+        this.setState({
+            college: this.props.navigation.state.params.college,
+            department: this.props.navigation.state.params.department
+        })
     }
 
     render(){
@@ -33,20 +23,22 @@ export default class SKKUQRScreen extends React.Component{
                 <View style={styles.container}>
                     <View style={styles.Rcontainer}>
                         <View style = {styles.title}>
-                            <Text>QR코드를 인식해 다음을 확인하세요.</Text>
+                            <Text style={styles.content}>QR코드를 인식해 다음을 확인하세요.</Text>
                         </View>
                         <View style={styles.contantContainer}>
-                            <Image style = {styles.profile} source={require(`../../profile.jpg`)}/>
+                            <Image style = {styles.profile} source={require(`../../profile.png`)}/>
                         <View style={styles.textContainer}>
                             <Text style = {styles.content}>
-                                {"소속\n"}{this.state.school}{" "}{this.state.department}
+                                {"학부\n"}{this.state.college}{"\n\n"}
+                                {"학과\n"}{this.state.department}
                             </Text>
                         </View>
                         </View>
                         <Text>{"\n"}</Text>
                         <QRCode
-                        content={"{info: "+this.state.school+this.state.department+"API_KEY: API_ID: code:"+this.state.code}
-                        size={200}
+                        content='http://192.168.1.105:19010/api/vp/belong/'
+                        //content 내부에 QR코드로 생성하고 싶은 문자열을 넣으면 된다.
+                        size={300}
                         bgColor='white'
                         fgColor='black'
                         />
@@ -56,7 +48,7 @@ export default class SKKUQRScreen extends React.Component{
                         style={styles.exitbutton}
                         >
                             <Text style={styles.text}> 인증완료 </Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>//인증 완료 버튼을 누를 시 main화면으로 다시 pop
                     </View>
                 </View>
                 );
@@ -72,26 +64,23 @@ const styles = StyleSheet.create({
         justifyContent:"center",
     },
     Rcontainer:{
-        height:"95%",
-        width:"80%",
+        height:"100%",
+        width:"100%",
         alignItems:"center",
         borderColor:"black",
-        borderWidth:1,
-        borderRadius:10,
-        backgroundColor:"#DDFFAA",
+        backgroundColor:"white",
     },
     title:{
-        borderBottomColor:"black",
-        borderBottomWidth:1,
         height:"10%",
         width:"100%",
         alignItems:"center",
         justifyContent:"center",
+        backgroundColor:'green'
     },
     content:{
         fontSize:20,
         fontWeight:"900",
-        color:"#333333",
+        color:"white",
     },
     textContainer:{
         height:"70%",
@@ -100,17 +89,16 @@ const styles = StyleSheet.create({
         justifyContent:"center",
     },
     contantContainer:{
-        height:"40%",
+        height:"30%",
         width:"100%",
         flexDirection:"row",
-        alignItems:"center",
-        borderBottomWidth:1,
+        alignItems:'flex-start',
         justifyContent:"center",
-        backgroundColor:"white",
+        backgroundColor:"green",
     },
     profile:{
-        width:"30%",
-        height: "70%",
+        width:"50%",
+        height: "90%",
         borderColor: "white",
         borderWidth:1,
     },
